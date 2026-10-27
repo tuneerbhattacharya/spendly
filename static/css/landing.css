@@ -1,0 +1,196 @@
+/* ------------------------------------------------------------------ */
+/* Landing hero                                                        */
+/* ------------------------------------------------------------------ */
+
+.hero-section {
+    --hero-green: #4a9a78;
+    --hero-green-ink: #1f6b4a;
+    --hero-green-bg: #e6f4ee;
+    --hero-green-line: #bfe3d2;
+    --hero-red: #d9453f;
+    --hero-bar-food: #e5a244;
+    --hero-bar-travel: #4a85d6;
+    --hero-bar-bills: #7b6fd0;
+
+    background: var(--paper-card);
+    padding: 3.6rem 2rem 3.6rem;
+    text-align: center;
+}
+
+.hero-section-inner {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--hero-green-bg);
+    color: var(--hero-green-ink);
+    border: 1px solid var(--hero-green-line);
+    border-radius: 999px;
+    padding: 0.3rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.hero-pill-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--hero-green);
+}
+
+.hero-heading {
+    font-family: var(--font-body);
+    font-size: clamp(2.25rem, 6vw, 3.25rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin: 1.4rem 0 1.4rem;
+}
+
+.hero-heading span {
+    display: block;
+    color: var(--hero-green);
+}
+
+.hero-lead {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--ink-muted);
+    max-width: 520px;
+    margin: 0 auto 2.4rem;
+}
+
+.hero-cta {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-bottom: 3.2rem;
+}
+
+.hero-btn {
+    display: inline-block;
+    background: var(--ink);
+    color: #fff;
+    padding: 0.75rem 1.8rem;
+    border-radius: 11px;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.hero-btn:hover { background: var(--accent); }
+
+/* Dashboard preview ------------------------------------------------- */
+
+.hero-dash {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 1.2rem 1.25rem 1.25rem;
+    text-align: left;
+}
+
+.hero-dash-dots {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.1rem 0 1rem 0.2rem;
+}
+
+.hero-dash-dots i {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+}
+
+.hero-dash-dots i:nth-child(1) { background: #e29494; }
+.hero-dash-dots i:nth-child(2) { background: #f0c97a; }
+.hero-dash-dots i:nth-child(3) { background: #a8dcc8; }
+
+.hero-dash-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.hero-dash-stat,
+.hero-dash-bars {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.hero-dash-stat { padding: 1rem 1.1rem; }
+
+.hero-dash-label {
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    margin-bottom: 0.35rem;
+}
+
+.hero-dash-value {
+    font-size: 1.55rem;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+}
+
+.hero-dash-note {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.15rem;
+}
+
+.hero-dash-note.is-up { color: var(--hero-red); }
+.hero-dash-note.is-ok { color: var(--hero-green); }
+
+.hero-dash-bars {
+    padding: 0.75rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.hero-dash-row {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    align-items: center;
+    gap: 1rem;
+    min-height: 1.9rem;
+}
+
+.hero-dash-cat {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    text-align: right;
+}
+
+.hero-dash-track {
+    height: 9px;
+    background: var(--border-soft);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.hero-dash-fill {
+    height: 100%;
+    border-radius: 999px;
+}
+
+.hero-dash-fill.is-food { background: var(--hero-bar-food); }
+.hero-dash-fill.is-travel { background: var(--hero-bar-travel); }
+.hero-dash-fill.is-bills { background: var(--hero-bar-bills); }
+
+@media (max-width: 600px) {
+    .hero-section { padding: 2.5rem 1rem 2.5rem; }
+    .hero-dash-stats { grid-template-columns: 1fr; }
+}
