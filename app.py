@@ -131,7 +131,48 @@ def logout():
 
 @app.route("/profile")
 def profile():
-    return "Profile page — coming in Step 4"
+    if not get_current_user():
+        return redirect(url_for("login"))
+
+    # Hardcoded placeholder data; Step 5 replaces this with real queries.
+    user = {
+        "name": "Demo User",
+        "email": "demo@spendly.com",
+        "member_since": "January 2026",
+        "initials": "DU",
+    }
+    stats = {
+        "total_spent": 6339.25,
+        "transaction_count": 8,
+        "top_category": "Shopping",
+    }
+    transactions = [
+        {"date": "25 Oct 2026", "description": "Dinner out", "category": "Food", "amount": 320.75},
+        {"date": "21 Oct 2026", "description": "Gift", "category": "Other", "amount": 200.00},
+        {"date": "17 Oct 2026", "description": "New shoes", "category": "Shopping", "amount": 2299.00},
+        {"date": "13 Oct 2026", "description": "Movie night", "category": "Entertainment", "amount": 499.00},
+        {"date": "09 Oct 2026", "description": "Pharmacy", "category": "Health", "amount": 650.00},
+        {"date": "06 Oct 2026", "description": "Electricity bill", "category": "Bills", "amount": 1800.00},
+        {"date": "04 Oct 2026", "description": "Metro card recharge", "category": "Transport", "amount": 120.50},
+        {"date": "01 Oct 2026", "description": "Groceries", "category": "Food", "amount": 450.00},
+    ]
+    # pct is rounded to a multiple of 5 so it maps onto the .bar-w-* classes.
+    categories = [
+        {"name": "Shopping", "total": 2299.00, "pct": 35},
+        {"name": "Bills", "total": 1800.00, "pct": 30},
+        {"name": "Food", "total": 770.75, "pct": 10},
+        {"name": "Health", "total": 650.00, "pct": 10},
+        {"name": "Entertainment", "total": 499.00, "pct": 10},
+        {"name": "Other", "total": 200.00, "pct": 5},
+        {"name": "Transport", "total": 120.50, "pct": 5},
+    ]
+    return render_template(
+        "profile.html",
+        user=user,
+        stats=stats,
+        transactions=transactions,
+        categories=categories,
+    )
 
 
 @app.route("/expenses/add")
