@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from datetime import datetime
 
 from flask import Flask, redirect, render_template, request, session, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -35,6 +36,21 @@ def get_current_user():
     if user is None:
         session.clear()
     return user
+
+
+def parse_date_range(args):
+    """Read the optional from/to query params. Returns (date_from, date_to, error)."""
+    date_from = args.get("from", "").strip()
+    date_to = args.get("to", "").strip()
+    try:
+        for value in (date_from, date_to):
+            if value:
+                datetime.strptime(value, "%Y-%m-%d")
+    except ValueError:
+        return None, None, "Please enter valid dates."
+    if date_from and date_to and date_from > date_to:
+        return None, None, "The start date must be on or before the end date."
+    return date_from or None, date_to or None, None
 
 
 @app.context_processor
@@ -142,12 +158,16 @@ def profile():
         return redirect(url_for("login"))
 
     user_id = current["id"]
+    date_from, date_to, filter_error = parse_date_range(request.args)
     return render_template(
         "profile.html",
         user=get_user_by_id(user_id),
-        stats=get_summary_stats(user_id),
-        transactions=get_recent_transactions(user_id),
-        categories=get_category_breakdown(user_id),
+        stats=get_summary_stats(user_id, date_from, date_to),
+        transactions=get_recent_transactions(user_id, date_from=date_from, date_to=date_to),
+        categories=get_category_breakdown(user_id, date_from, date_to),
+        date_from=date_from,
+        date_to=date_to,
+        filter_error=filter_error,
     )
 
 

@@ -16,6 +16,22 @@
             </div>
         </div>
 
+        <form method="get" action="{{ url_for('profile') }}" class="filter-form">
+            <div class="filter-field">
+                <label for="filter-from" class="stat-label">From</label>
+                <input type="date" id="filter-from" name="from" class="form-input" value="{{ date_from or '' }}">
+            </div>
+            <div class="filter-field">
+                <label for="filter-to" class="stat-label">To</label>
+                <input type="date" id="filter-to" name="to" class="form-input" value="{{ date_to or '' }}">
+            </div>
+            <button type="submit" class="btn-primary">Apply</button>
+            <a href="{{ url_for('profile') }}" class="btn-ghost">Clear</a>
+        </form>
+        {% if filter_error %}
+        <div class="auth-error">{{ filter_error }}</div>
+        {% endif %}
+
         <div class="stat-grid">
             <div class="stat-card">
                 <span class="stat-label">Total spent</span>
@@ -53,7 +69,7 @@
                         </tr>
                         {% else %}
                         <tr>
-                            <td colspan="4">No expenses yet.</td>
+                            <td colspan="4">{% if date_from or date_to %}No expenses in this date range.{% else %}No expenses yet.{% endif %}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -73,7 +89,7 @@
                     <span class="breakdown-amt">₹{{ "{:,.2f}".format(c.amount) }}</span>
                 </div>
                 {% else %}
-                <p>No spending to break down yet.</p>
+                <p>{% if date_from or date_to %}No spending in this date range.{% else %}No spending to break down yet.{% endif %}</p>
                 {% endfor %}
             </div>
         </div>
