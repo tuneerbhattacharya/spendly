@@ -51,6 +51,10 @@
                             <td><span class="badge badge-{{ t.category|lower }}">{{ t.category }}</span></td>
                             <td class="txn-amount">₹{{ "{:,.2f}".format(t.amount) }}</td>
                         </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4">No expenses yet.</td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -62,12 +66,14 @@
             <div class="breakdown">
                 {% for c in categories %}
                 <div class="breakdown-row">
-                    <span class="breakdown-name">{{ c.name }}</span>
+                    <span class="breakdown-name">{{ c.name }} · {{ c.pct }}%</span>
                     <div class="bar-track">
-                        <div class="bar-fill bar-w-{{ c.pct }}"></div>
+                        <div class="bar-fill bar-w-{{ c.bar }}"></div>
                     </div>
-                    <span class="breakdown-amt">₹{{ "{:,.2f}".format(c.total) }}</span>
+                    <span class="breakdown-amt">₹{{ "{:,.2f}".format(c.amount) }}</span>
                 </div>
+                {% else %}
+                <p>No spending to break down yet.</p>
                 {% endfor %}
             </div>
         </div>
