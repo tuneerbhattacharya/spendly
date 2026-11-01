@@ -48,7 +48,10 @@
         </div>
 
         <div class="profile-panel">
-            <h2 class="panel-title">Transaction history</h2>
+            <div class="panel-header">
+                <h2 class="panel-title">Transaction history</h2>
+                <a href="{{ url_for('add_expense') }}" class="btn-primary">Add expense</a>
+            </div>
             <div class="table-wrap">
                 <table class="txn-table">
                     <thead>
@@ -69,7 +72,7 @@
                         </tr>
                         {% else %}
                         <tr>
-                            <td colspan="4">{% if date_from or date_to %}No expenses in this date range.{% else %}No expenses yet.{% endif %}</td>
+                            <td colspan="4">{% if date_from or date_to %}No expenses in this date range.{% else %}No expenses yet. <a href="{{ url_for('add_expense') }}">Add your first one.</a>{% endif %}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

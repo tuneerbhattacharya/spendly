@@ -37,6 +37,20 @@ def get_user_by_id(user_id):
     }
 
 
+def create_expense(user_id, amount, category, date, description):
+    conn = get_db()
+    try:
+        cur = conn.execute(
+            "INSERT INTO expenses (user_id, amount, category, date, description)"
+            " VALUES (?, ?, ?, ?, ?)",
+            (user_id, amount, category, date, description or None),
+        )
+        conn.commit()
+        return cur.lastrowid
+    finally:
+        conn.close()
+
+
 # --- SECTION: transactions ---
 def get_recent_transactions(user_id, limit=10, date_from=None, date_to=None):
     clause, params = _date_clause(date_from, date_to)
