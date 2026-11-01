@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics — Spendly{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/analytics.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="analytics-soon">
+    <div class="soon-card">
+        <img class="soon-accent soon-accent-top" src="{{ url_for('static', filename='img/analytics/accent-top.svg') }}" alt="">
+        <img class="soon-accent soon-accent-bottom" src="{{ url_for('static', filename='img/analytics/accent-bottom.svg') }}" alt="">
+
+        <img class="soon-tile" src="{{ url_for('static', filename='img/analytics/clock-tile.svg') }}" alt="">
+        <span class="soon-badge">COMING SOON</span>
+        <h1 class="soon-title">Advanced Analytics</h1>
+        <p class="soon-text">
+            We're working on powerful insights and visualizations to help you
+            understand your spending patterns better.
+        </p>
+        <img class="soon-dots" src="{{ url_for('static', filename='img/analytics/progress-dots.svg') }}" alt="">
+        <p class="soon-note">We're crafting something special.</p>
+    </div>
+</section>
+{% endblock %}
