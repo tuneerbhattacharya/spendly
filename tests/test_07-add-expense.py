@@ -342,10 +342,9 @@ def test_edit_requires_login_after_step_8(client):
     assert "/login" in resp.headers["Location"]
 
 
-def test_delete_placeholder_untouched(client):
+def test_delete_rejects_get(client):
     resp = client.get("/expenses/1/delete")
-    assert resp.status_code == 200
-    assert b"coming in Step 9" in resp.data
+    assert resp.status_code == 405
 
 
 # ------------------------------ profile entry point ------------------------------ #

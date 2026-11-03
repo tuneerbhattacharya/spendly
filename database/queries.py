@@ -86,6 +86,19 @@ def update_expense(expense_id, user_id, amount, category, date, description):
         conn.close()
 
 
+def delete_expense(expense_id, user_id):
+    conn = get_db()
+    try:
+        cur = conn.execute(
+            "DELETE FROM expenses WHERE id = ? AND user_id = ?",
+            (expense_id, user_id),
+        )
+        conn.commit()
+        return cur.rowcount
+    finally:
+        conn.close()
+
+
 # --- SECTION: transactions ---
 def get_recent_transactions(user_id, limit=10, date_from=None, date_to=None):
     clause, params = _date_clause(date_from, date_to)

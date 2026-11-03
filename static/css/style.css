@@ -851,3 +851,22 @@ a { color: inherit; text-decoration: none; }
 .txn-edit:hover {
     text-decoration: underline;
 }
+
+.txn-delete-form {
+    display: inline;
+    margin-left: 0.75rem;
+}
+
+.txn-delete {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--danger);
+    font-family: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.txn-delete:hover {
+    text-decoration: underline;
+}
