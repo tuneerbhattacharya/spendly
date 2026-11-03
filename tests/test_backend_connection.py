@@ -71,7 +71,7 @@ def test_summary_stats_without_expenses(app):
 def test_recent_transactions_newest_first(app):
     txns = queries.get_recent_transactions(1)
     assert len(txns) == 8
-    assert set(txns[0]) == {"date", "description", "category", "amount"}
+    assert set(txns[0]) == {"id", "date", "description", "category", "amount"}
     assert txns[0]["description"] == "Dinner out"
     assert txns[-1]["description"] == "Groceries"
 
