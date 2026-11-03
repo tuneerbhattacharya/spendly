@@ -3,16 +3,18 @@ import os
 import sqlite3
 from datetime import date, datetime
 
-from flask import Flask, redirect, render_template, request, session, url_for
+from flask import Flask, abort, redirect, render_template, request, session, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from database.db import CATEGORIES, get_db, init_db, seed_db
 from database.queries import (
     create_expense,
     get_category_breakdown,
+    get_expense_by_id,
     get_recent_transactions,
     get_summary_stats,
     get_user_by_id,
+    update_expense,
 )
 
 app = Flask(__name__)
@@ -245,9 +247,47 @@ def add_expense():
     return redirect(url_for("profile"))
 
 
-@app.route("/expenses/<int:id>/edit")
+@app.route("/expenses/<int:id>/edit", methods=["GET", "POST"])
 def edit_expense(id):
-    return "Edit expense — coming in Step 8"
+    current = get_current_user()
+    if not current:
+        return redirect(url_for("login"))
+
+    expense = get_expense_by_id(id, current["id"])
+    if expense is None:
+        abort(404)
+
+    if request.method == "GET":
+        return render_template(
+            "add_expense.html",
+            categories=CATEGORIES,
+            form=expense,
+            editing=True,
+            expense_id=id,
+        )
+
+    clean, error = validate_expense_form(request.form)
+    if error:
+        return render_template(
+            "add_expense.html",
+            categories=CATEGORIES,
+            form=request.form,
+            error=error,
+            editing=True,
+            expense_id=id,
+        )
+
+    updated = update_expense(
+        id,
+        current["id"],
+        clean["amount"],
+        clean["category"],
+        clean["date"],
+        clean["description"],
+    )
+    if not updated:
+        abort(404)
+    return redirect(url_for("profile"))
 
 
 @app.route("/expenses/<int:id>/delete")

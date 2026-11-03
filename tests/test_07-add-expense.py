@@ -336,10 +336,10 @@ def test_sql_injection_in_amount_rejected_and_table_intact(logged_in):
 
 # ------------------------------ untouched placeholders ------------------------------ #
 
-def test_edit_placeholder_untouched(client):
+def test_edit_requires_login_after_step_8(client):
     resp = client.get("/expenses/1/edit")
-    assert resp.status_code == 200
-    assert b"coming in Step 8" in resp.data
+    assert resp.status_code == 302
+    assert "/login" in resp.headers["Location"]
 
 
 def test_delete_placeholder_untouched(client):

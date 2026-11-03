@@ -837,3 +837,17 @@ a { color: inherit; text-decoration: none; }
     .legal-card { padding: 1.5rem; }
     .legal-title { font-size: 2rem; }
 }
+
+.txn-actions {
+    text-align: right;
+}
+
+.txn-edit {
+    color: var(--accent);
+    font-size: 0.875rem;
+    text-decoration: none;
+}
+
+.txn-edit:hover {
+    text-decoration: underline;
+}
